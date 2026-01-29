@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Yatırım Karşılaştırma</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+    }
+    label, input, select, button {
+      display: block;
+      margin: 10px 0;
+    }
+    button {
+      padding: 8px;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Yatırım Eşitlenme Hesabı</h2>
+
+  <label>
+    Faiz oranı (%):
+    <input type="number" id="rate" value="3" step="0.1">
+  </label>
+
+  <label>
+    Faiz tipi:
+    <select id="period">
+      <option value="yearly">Yıllık</option>
+      <option value="monthly">Aylık</option>
+    </select>
+  </label>
+
+  <button onclick="calculate()">Hesapla</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculate() {
+      const rateInput = parseFloat(document.getElementById("rate").value) / 100;
+      const period = document.getElementById("period").value;
+
+      // Haftalık faiz oranına çevir
+      let weeklyRate;
+      if (period === "yearly") {
+        weeklyRate = rateInput / 52;
+      } else {
+        weeklyRate = rateInput / 12 / 4.333;
+      }
+
+      const A0 = 1_000_000;
+      const weeklyContribution = 1_000;
+
+      let weeks = 0;
+      let A = A0;
+      let B = 0;
+
+      while (B < A && weeks < 10_000) {
+        weeks++;
+        A *= (1 + weeklyRate);
+        B = B * (1 + weeklyRate) + weeklyContribution;
+      }
+
+      if (weeks >= 10_000) {
+        document.getElementById("result").innerText =
+          "Bu faiz oranında pratik olarak eşitlenmez.";
+        return;
+      }
+
+      const years = (weeks / 52).toFixed(2);
+
+      document.getElementById("result").innerText =
+        `Yaklaşık ${years} yıl sonra eşitlenirler.`;
+    }
+  </script>
+
+</body>
+</html>
