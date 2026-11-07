@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting to senel.site</title>
+
+  <!-- canonical target for crawlers -->
+  <link rel="canonical" href="https://senel.site/">
+  <meta name="robots" content="noindex">
+
+  <!-- works without JavaScript -->
+  <meta http-equiv="refresh" content="0; url=https://senel.site/">
+
+  <script>
+    // replace() so the redirect doesn't create a history entry
+    location.replace("https://senel.site/");
+  </script>
+
+  <style>
+    body { font: 16px/1.5 system-ui, sans-serif; display: grid;
+           place-items: center; height: 100vh; margin: 0; }
+    a { color: #0b5fff; }
+  </style>
+</head>
+<body>
+  <p>Redirecting to <a href="https://senel.site/">senel.site</a>…</p>
+</body>
+</html>
